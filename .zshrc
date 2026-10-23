@@ -1,10 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -15,7 +8,7 @@ export ZSH="/Users/rmahadevan/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME=""  # prompt handled by Starship
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -79,10 +72,15 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
  git
+ zsh-autosuggestions
  zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
+
+# ls colors: directories plain (non-bold) cyan; oh-my-zsh default is bold cyan
+export LSCOLORS="gxfxcxdxbxegedabagacad"
+export LS_COLORS="di=36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
 
 # User configuration
 
@@ -110,18 +108,24 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# Prompt: Starship (config in ~/.config/starship.toml)
+eval "$(starship init zsh)"
 
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# Force syntax highlighting to use standard terminal color (ANSI 7) without decoration
-ZSH_HIGHLIGHT_STYLES[command]='fg=7'
-ZSH_HIGHLIGHT_STYLES[alias]='fg=7'
-ZSH_HIGHLIGHT_STYLES[builtin]='fg=7'
-ZSH_HIGHLIGHT_STYLES[function]='fg=7'
-ZSH_HIGHLIGHT_STYLES[path]='fg=7,none'
-ZSH_HIGHLIGHT_STYLES[path_prefix]='fg=7,none'
+# Bright white (ANSI 15) for typed input; Solarized's default foreground is too dim
+ZSH_HIGHLIGHT_STYLES[default]='fg=15'
+ZSH_HIGHLIGHT_STYLES[command]='fg=15'
+ZSH_HIGHLIGHT_STYLES[alias]='fg=15'
+ZSH_HIGHLIGHT_STYLES[builtin]='fg=15'
+ZSH_HIGHLIGHT_STYLES[function]='fg=15'
+ZSH_HIGHLIGHT_STYLES[path]='fg=15,none'
+ZSH_HIGHLIGHT_STYLES[path_prefix]='fg=15,none'
+# Default comment style is black,bold -> ANSI 8, which equals the Solarized Dark background
+ZSH_HIGHLIGHT_STYLES[comment]='fg=244'
+# Autosuggestion default is fg=8, which equals the Solarized Dark background
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=244'
 
+
+# kubebuilder shell completion
+command -v kubebuilder >/dev/null && source <(kubebuilder completion zsh)
