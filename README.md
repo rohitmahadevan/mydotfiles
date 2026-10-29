@@ -12,7 +12,7 @@ Personal dotfiles for macOS, managed with [chezmoi](https://www.chezmoi.io).
 | `home/private_dot_config/starship.toml` | `~/.config/starship.toml` (Catppuccin Mocha) |
 | `home/private_Library/private_Application Support/iTerm2/DynamicProfiles/catppuccin-mocha.json` | iTerm2 dynamic profile |
 | `home/private_Library/private_Application Support/private_Code/User/settings.json` | VS Code user settings |
-| `home/.chezmoiscripts/run_onchange_install-packages.sh.tmpl` | Runs `brew bundle install --no-upgrade` whenever `mac/Brewfile` changes (installs missing packages, never upgrades) |
+| `home/.chezmoiscripts/run_onchange_install-packages.sh.tmpl` | Runs `brew bundle install --no-upgrade` whenever `mac/Brewfile` changes (installs missing packages, skips upgrading outdated ones) |
 | `mac/Brewfile` | Homebrew taps, formulae, casks and Go tools |
 | `legacy/.p10k.zsh` | Old Powerlevel10k config, kept for reference |
 
