@@ -24,6 +24,7 @@ $python\
 $conda\
 [](fg:sapphire bg:lavender)\
 $kubernetes\
+${custom.kubeconfig}\
 [ ](fg:lavender)\
 $cmd_duration\
 $line_break\
@@ -383,3 +384,11 @@ crust = "#f8f9fa"
 disabled = false
 style = "bg:lavender"
 format = '[[☸ $context( \($namespace\))](fg:crust bg:lavender)]($style)'
+
+# Show which kubeconfig file is active (k0s kubeconfigs all use context "Default")
+[custom.kubeconfig]
+when = 'test -n "$KUBECONFIG"'
+command = 'basename "${KUBECONFIG%%:*}" .kubeconfig'
+shell = ['sh']
+style = "bg:lavender"
+format = '[[ $output](fg:crust bg:lavender)]($style)'

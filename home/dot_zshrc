@@ -108,6 +108,33 @@ export LS_COLORS="di=36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+alias k=kubectl
+
+# Set the namespace on the current kubectl context; no argument clears it
+setcon() {
+  kubectl config set-context --current --namespace="$1"
+}
+
+# Switch KUBECONFIG to a file in any ~/.kube/<dir>/ by name, e.g. `kc ws1-pg-infra`
+kc() {
+  if [[ -z $1 ]]; then
+    unset KUBECONFIG
+    return
+  fi
+  local -a f=(~/.kube/*/$1.kubeconfig(N))
+  if (( ${#f} == 0 )); then
+    echo "kc: no such kubeconfig: ~/.kube/*/$1.kubeconfig" >&2
+    return 1
+  elif (( ${#f} > 1 )); then
+    echo "kc: $1 matches more than one kubeconfig:" >&2
+    print -l $f >&2
+    return 1
+  fi
+  export KUBECONFIG=$f[1]
+}
+_kc() { compadd ~/.kube/*/*.kubeconfig(N:t:r) }
+compdef _kc kc
+
 # Prompt: Starship (config in ~/.config/starship.toml)
 eval "$(starship init zsh)"
 
