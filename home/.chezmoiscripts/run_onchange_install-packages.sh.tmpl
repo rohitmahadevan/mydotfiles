@@ -1,4 +1,4 @@
 #!/bin/sh
 # Re-runs whenever the Brewfile changes.
 # Brewfile hash: {{ include (joinPath .chezmoi.workingTree "mac/Brewfile") | sha256sum }}
-brew bundle install --file="{{ joinPath .chezmoi.workingTree "mac/Brewfile" }}"
+brew bundle install --no-upgrade --file="{{ joinPath .chezmoi.workingTree "mac/Brewfile" }}"
