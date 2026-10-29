@@ -115,25 +115,42 @@ setcon() {
   kubectl config set-context --current --namespace="$1"
 }
 
-# Switch KUBECONFIG to a file in any ~/.kube/<dir>/ by name, e.g. `kc ws1-pg-infra`
+# Resolve a kubeconfig name to its file in any ~/.kube/<dir>/; sets $REPLY
+_kubeconfig_find() {
+  local -a f=(~/.kube/*/$1.kubeconfig(N))
+  if (( ${#f} == 0 )); then
+    echo "no such kubeconfig: ~/.kube/*/$1.kubeconfig" >&2
+    return 1
+  elif (( ${#f} > 1 )); then
+    echo "$1 matches more than one kubeconfig:" >&2
+    print -l $f >&2
+    return 1
+  fi
+  REPLY=$f[1]
+}
+
+# Switch KUBECONFIG to a kubeconfig by name, e.g. `kc ws1-pg-infra`; no argument unsets it
 kc() {
   if [[ -z $1 ]]; then
     unset KUBECONFIG
     return
   fi
-  local -a f=(~/.kube/*/$1.kubeconfig(N))
-  if (( ${#f} == 0 )); then
-    echo "kc: no such kubeconfig: ~/.kube/*/$1.kubeconfig" >&2
-    return 1
-  elif (( ${#f} > 1 )); then
-    echo "kc: $1 matches more than one kubeconfig:" >&2
-    print -l $f >&2
-    return 1
-  fi
-  export KUBECONFIG=$f[1]
+  _kubeconfig_find $1 || return
+  export KUBECONFIG=$REPLY
 }
+
+# Open k9s on a kubeconfig by name, e.g. `k9 ws1-pg-infra`; extra args go to k9s
+k9() {
+  if [[ -z $1 ]]; then
+    k9s
+    return
+  fi
+  _kubeconfig_find $1 || return
+  k9s --kubeconfig $REPLY "${@:2}"
+}
+
 _kc() { compadd ~/.kube/*/*.kubeconfig(N:t:r) }
-compdef _kc kc
+compdef _kc kc k9
 
 # Prompt: Starship (config in ~/.config/starship.toml)
 eval "$(starship init zsh)"
