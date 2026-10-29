@@ -1,32 +1,48 @@
 # mydotfiles
 
-Personal dotfiles for macOS.
+Personal dotfiles for macOS, managed with [chezmoi](https://www.chezmoi.io).
 
 ## Layout
 
-| Path | Purpose | Installs to |
-| --- | --- | --- |
-| `.zshrc` | Zsh config (oh-my-zsh, prompt handled by Starship) | `~/.zshrc` |
-| `.config/starship.toml` | Starship prompt, Catppuccin Mocha theme | `~/.config/starship.toml` |
-| `iterm2/DynamicProfiles/catppuccin-mocha.json` | iTerm2 profile, Catppuccin Mocha | `~/Library/Application Support/iTerm2/DynamicProfiles/` |
-| `vscode/settings.json` | VS Code user settings | `~/Library/Application Support/Code/User/settings.json` |
-| `mac/Brewfile` | Homebrew taps, formulae, casks and Go tools | n/a |
-| `legacy/.p10k.zsh` | Old Powerlevel10k config, kept for reference | n/a |
+`.chezmoiroot` points chezmoi at `home/`, so only files under `home/` are installed. Everything else in the repo is ignored by chezmoi.
+
+| Path | Installs to |
+| --- | --- |
+| `home/dot_zshrc` | `~/.zshrc` (oh-my-zsh, prompt handled by Starship) |
+| `home/private_dot_config/starship.toml` | `~/.config/starship.toml` (Catppuccin Mocha) |
+| `home/private_Library/private_Application Support/iTerm2/DynamicProfiles/catppuccin-mocha.json` | iTerm2 dynamic profile |
+| `home/private_Library/private_Application Support/private_Code/User/settings.json` | VS Code user settings |
+| `home/.chezmoiscripts/run_onchange_install-packages.sh.tmpl` | Runs `brew bundle install` whenever `mac/Brewfile` changes |
+| `mac/Brewfile` | Homebrew taps, formulae, casks and Go tools |
+| `legacy/.p10k.zsh` | Old Powerlevel10k config, kept for reference |
+
+The `dot_` prefix maps to a leading `.` and `private_` keeps the target at `0700`/`0600` permissions.
 
 ## Setup on a new Mac
 
 ```sh
-# Homebrew packages
-brew bundle install --file=mac/Brewfile
-
-# Config files
-cp .zshrc ~/.zshrc
-mkdir -p ~/.config && cp .config/starship.toml ~/.config/starship.toml
-cp iterm2/DynamicProfiles/catppuccin-mocha.json ~/Library/Application\ Support/iTerm2/DynamicProfiles/
-cp vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
+# Install Homebrew first, then:
+brew install chezmoi
+chezmoi init --apply rohitmahadevan/mydotfiles
 ```
 
-`.zshrc` expects oh-my-zsh at `~/.oh-my-zsh`.
+This clones the repo to `~/.local/share/chezmoi`, installs the config files and runs `brew bundle install`. `.zshrc` expects oh-my-zsh at `~/.oh-my-zsh`.
+
+To keep the repo at `~/github/mydotfiles` instead, clone it there and add to `~/.config/chezmoi/chezmoi.toml`:
+
+```toml
+sourceDir = "~/github/mydotfiles"
+```
+
+## Day-to-day
+
+```sh
+chezmoi diff               # what apply would change in $HOME
+chezmoi apply              # write repo state to $HOME
+chezmoi re-add             # pull edits made in $HOME back into the repo
+chezmoi add ~/.some/file   # start managing a new file
+chezmoi cd                 # open a shell in the repo
+```
 
 ## Updating the Brewfile
 

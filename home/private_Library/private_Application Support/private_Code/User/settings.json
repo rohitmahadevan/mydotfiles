@@ -1,0 +1,14 @@
+{
+    "workbench.colorTheme": "Default High Contrast",
+    "workbench.editor.enablePreview": false,
+    "workbench.editorAssociations": {
+        "*.md": "vscode.markdown.preview.editor"
+    },
+    "claudeCode.preferredLocation": "panel",
+    "claudeCode.hideOnboarding": true,
+    "claudeCode.useTerminal": true,
+    "github.copilot.enable": {
+        "go": true
+    },
+    "editor.formatOnSave": true
+}
