@@ -10,6 +10,7 @@ Personal dotfiles for macOS, managed with [chezmoi](https://www.chezmoi.io).
 | --- | --- |
 | `home/dot_zshrc` | `~/.zshrc` (oh-my-zsh, prompt handled by Starship) |
 | `home/private_dot_config/starship.toml` | `~/.config/starship.toml` (Catppuccin Mocha) |
+| `home/private_dot_config/tmux/tmux.conf` | `~/.config/tmux/tmux.conf` (mouse, 1-based indexes, Catppuccin Mocha status bar) |
 | `home/private_Library/private_Application Support/iTerm2/DynamicProfiles/catppuccin-mocha.json` | iTerm2 dynamic profile |
 | `home/private_Library/private_Application Support/private_Code/User/settings.json` | VS Code user settings |
 | `home/.chezmoiscripts/run_onchange_install-packages.sh.tmpl` | Runs `brew bundle install --no-upgrade` whenever `mac/Brewfile` changes (installs missing packages, skips upgrading outdated ones) |
