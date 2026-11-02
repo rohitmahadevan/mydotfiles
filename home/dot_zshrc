@@ -173,3 +173,6 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=244'
 
 # kubebuilder shell completion
 command -v kubebuilder >/dev/null && source <(kubebuilder completion zsh)
+
+# sofka shell completion; its autoloaded _sofka only registers itself on the first Tab, so source it eagerly
+command -v sofka >/dev/null && source <(sofka completion zsh)
