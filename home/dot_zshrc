@@ -139,14 +139,14 @@ kc() {
   export KUBECONFIG=$REPLY
 }
 
-# Open k9s on a kubeconfig by name, e.g. `k9 ws1-pg-infra`; extra args go to k9s
+# Open sofka on a kubeconfig by name, e.g. `k9 ws1-pg-infra`; extra args go to sofka
 k9() {
   if [[ -z $1 ]]; then
-    k9s
+    sofka
     return
   fi
   _kubeconfig_find $1 || return
-  k9s --kubeconfig $REPLY "${@:2}"
+  sofka --kubeconfig $REPLY "${@:2}"
 }
 
 _kc() { compadd ~/.kube/*/*.kubeconfig(N:t:r) }
