@@ -1,0 +1,2 @@
+# Target cluster: no mutating actions from the TUI. Override for one session with `sofka --write`.
+readonly = true
