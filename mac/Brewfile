@@ -17,6 +17,7 @@ brew "lspmux"
 brew "powerlevel10k"
 brew "starship"
 brew "tmux"
+brew "yq"
 brew "zsh-syntax-highlighting"
 brew "hashicorp/tap/terraform", trusted: true
 cask "1password-cli"
