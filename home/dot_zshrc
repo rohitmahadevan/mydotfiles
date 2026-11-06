@@ -169,6 +169,8 @@ ZSH_HIGHLIGHT_STYLES[path_prefix]='fg=15,none'
 ZSH_HIGHLIGHT_STYLES[comment]='fg=244'
 # Autosuggestion default is fg=8, which equals the Solarized Dark background
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=244'
+# Clear the suggestion on Backspace instead of re-fetching it
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(backward-delete-char)
 
 
 # kubebuilder shell completion
