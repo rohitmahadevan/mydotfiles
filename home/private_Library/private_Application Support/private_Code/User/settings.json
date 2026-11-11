@@ -10,5 +10,6 @@
     "github.copilot.enable": {
         "go": true
     },
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "security.workspace.trust.untrustedFiles": "open"
 }
