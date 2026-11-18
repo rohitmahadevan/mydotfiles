@@ -1,7 +1,7 @@
 tap "hashicorp/tap"
 brew "awscli"
 brew "chezmoi"
-brew "colima"
+brew "colima", restart_service: :changed
 brew "docker"
 brew "docker-buildx"
 brew "fish"
