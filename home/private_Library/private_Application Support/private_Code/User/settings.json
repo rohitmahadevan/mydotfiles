@@ -11,5 +11,9 @@
         "go": true
     },
     "editor.formatOnSave": true,
-    "security.workspace.trust.untrustedFiles": "open"
+    "security.workspace.trust.untrustedFiles": "open",
+    "vs-kubernetes": {
+        "vs-kubernetes.crd-code-completion": "enabled"
+    },
+    "redhat.telemetry.enabled": false
 }
