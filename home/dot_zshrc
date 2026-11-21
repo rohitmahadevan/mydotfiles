@@ -111,8 +111,13 @@ export LS_COLORS="di=36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30
 alias k=kubectl
 
 # Set the namespace on the current kubectl context; no argument clears it
-setcon() {
+setns() {
   kubectl config set-context --current --namespace="$1"
+}
+
+# Switch the current kubectl context
+setcon() {
+  kubectl config use-context "$1"
 }
 
 # Resolve a kubeconfig name to its file in any ~/.kube/<dir>/; sets $REPLY
