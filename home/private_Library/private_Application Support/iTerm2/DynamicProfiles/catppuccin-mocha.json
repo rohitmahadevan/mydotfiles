@@ -3,6 +3,7 @@
   {
    "Name": "Catppuccin Mocha",
    "Guid": "catppuccin-mocha-starship",
+   "Normal Font": "MesloLGS-NF-Regular 14",
    "Dynamic Profile Parent Name": "Default",
    "Use Separate Colors for Light and Dark Mode": false,
    "Link Color": {
