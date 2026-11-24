@@ -124,6 +124,7 @@ setcon() {
 getcon() {
   local -a ctxs=(${(f)"$(kubectl config get-contexts -o name)"})
   local PS3="context #: "
+  echo "current: $(kubectl config current-context)"
   select c in $ctxs; do
     [[ -n $c ]] && kubectl config use-context "$c"
     break
