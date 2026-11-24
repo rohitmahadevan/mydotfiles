@@ -120,6 +120,16 @@ setcon() {
   kubectl config use-context "$1"
 }
 
+# List kubectl contexts as a numbered menu and switch to the one picked
+getcon() {
+  local -a ctxs=(${(f)"$(kubectl config get-contexts -o name)"})
+  local PS3="context #: "
+  select c in $ctxs; do
+    [[ -n $c ]] && kubectl config use-context "$c"
+    break
+  done
+}
+
 # Resolve a kubeconfig name to its file in any ~/.kube/<dir>/; sets $REPLY
 _kubeconfig_find() {
   local -a f=(~/.kube/*/$1.kubeconfig(N))
