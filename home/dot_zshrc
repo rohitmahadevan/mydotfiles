@@ -155,11 +155,22 @@ kc() {
   export KUBECONFIG=$REPLY
 }
 
+# Refuse to start sofka on the default ~/.kube/config; needs --kubeconfig or a KUBECONFIG set by kc
+sofka() {
+  if [[ -z $KUBECONFIG && ${@[(I)--kubeconfig*]} -eq 0 &&
+        $1 != (completion|help|plugin|import|check-update|-h|--help|-V|--version) ]]; then
+    echo "sofka: pass --kubeconfig <file>, or use k9 <name> / kc <name> first" >&2
+    return 1
+  fi
+  command sofka "$@"
+}
+
 # Open sofka on a kubeconfig by name, e.g. `k9 ws1-pg-infra`; extra args go to sofka
 k9() {
   if [[ -z $1 ]]; then
-    sofka
-    return
+    echo "usage: k9 <name>; kubeconfigs:" >&2
+    print -l ~/.kube/*/*.kubeconfig(N:t:r) >&2
+    return 1
   fi
   _kubeconfig_find $1 || return
   sofka --kubeconfig $REPLY "${@:2}"
