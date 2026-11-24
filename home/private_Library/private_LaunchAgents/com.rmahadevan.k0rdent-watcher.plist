@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>EnvironmentVariables</key>
+	<dict>
+		<key>PATH</key>
+		<string>/opt/homebrew/bin:/opt/homebrew/sbin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+	</dict>
+	<key>Label</key>
+	<string>com.rmahadevan.k0rdent-watcher</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/Users/rmahadevan/.local/bin/k0rdent-watcher-start.sh</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>StandardErrorPath</key>
+	<string>/Users/rmahadevan/Library/Logs/k0rdent-watcher.log</string>
+	<key>StandardOutPath</key>
+	<string>/Users/rmahadevan/Library/Logs/k0rdent-watcher.log</string>
+	<key>WorkingDirectory</key>
+	<string>/Users/rmahadevan</string>
+</dict>
+</plist>
