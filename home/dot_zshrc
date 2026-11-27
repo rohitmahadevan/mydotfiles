@@ -205,3 +205,6 @@ command -v kubebuilder >/dev/null && source <(kubebuilder completion zsh)
 
 # sofka shell completion; its autoloaded _sofka only registers itself on the first Tab, so source it eagerly
 command -v sofka >/dev/null && source <(sofka completion zsh)
+
+# Hermes Agent command
+case ":$PATH:" in *":$HOME/.local/bin:"*) ;; *) export PATH="$HOME/.local/bin:$PATH" ;; esac
